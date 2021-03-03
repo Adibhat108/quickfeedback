@@ -10,9 +10,9 @@ import { useAuth } from '@/lib/auth';
 import SiteTable from '@/components/SiteTable';
 
 export default function Dashboard() {
-  const auth = useAuth();
-  const { data } = useSwr('/api/sites', Fetcher);
-  console.log(data);
+  const { user } = useAuth();
+  const { data } = useSwr(user ? ['/api/sites', user.token] : null, Fetcher);
+
   return (
     <DashboardShell>
       {!data ? <SiteTableSkeleton /> : (data.sites ? <SiteTable sites={data.sites} />: <EmptyState />)}

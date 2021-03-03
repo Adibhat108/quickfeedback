@@ -46,7 +46,7 @@ const AddSiteModal = ({ children }) => {
       isClosable: true,
     });
     // https://github.com/vercel/swr#mutation-and-post-request
-    mutate('/api/sites', async (data) => {
+    mutate(['/api/sites', auth.user.token], async (data) => {
       return { sites: [...data.sites, newSite] };
     }, false);
     onClose();
